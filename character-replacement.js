@@ -14,6 +14,7 @@ Explanation: Replace the two 'A's with two 'B's or vice versa.
 const s = "ABAB",
   k = 2;
 const characterReplacement = (s, k) => {
+  // see this commit
   return true;
 };
 
