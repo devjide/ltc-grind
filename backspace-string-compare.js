@@ -84,3 +84,20 @@ const myBackSpaceStringCompareSolution = (s, t) => {
 };
 
 console.log(myBackSpaceStringCompareSolution(s, t));
+
+const backspaceCompare = (s, t) => {
+  function checkString(str) {
+    return str.split("").reduce((accumulator, item) => {
+      if (item === "#") {
+        accumulator.pop();
+      } else {
+        accumulator.push(item);
+      }
+      return accumulator;
+    }, []);
+  }
+
+  return checkString(s).join("") === checkString(t).join("");
+};
+
+console.log(backspaceCompare(s, t));
