@@ -3,33 +3,32 @@
 */
 
 var serializeBFS = function (root) {
-  let stack = [],
-    serialize = [];
-  if (root == null) return [];
-  stack.push(root);
-  while (stack.length > 0) {
-    let node = stack.shift();
-    serialize.push(node ? node.val : null);
+  let serialized = [];
+  if (root === null) return serialized;
+  let queue = [root];
+  while (queue.length > 0) {
+    let node = queue.shift();
+    serialized.push(node ? node.val : null);
     if (node != null) {
-      stack.push(node.left);
-      stack.push(node.right);
+      queue.push(node.right);
+      queue.push(node.left);
     }
   }
-  return serialize;
+  return serialized.join("");
 };
 
 var deserializeBFS = function (data) {
   if (data[0] == null) return null;
   let node = new TreeNode(data.shift());
-  let stack = [node];
-  while (stack.length > 0) {
-    let node = stack.shift();
+  let queue = [node];
+  while (queue.length > 0) {
+    let current = queue.shift();
     left = data.shift();
     right = data.shift();
-    node.left = left == null ? null : new TreeNode(left);
-    node.right = right == null ? null : new TreeNode(right);
-    if (node.left != null) stack.push(node.left);
-    if (node.right != null) stack.push(node.right);
+    current.left = left == null ? null : new TreeNode(left);
+    current.right = right == null ? null : new TreeNode(right);
+    if (current.left != null) queue.push(current.left);
+    if (current.right != null) queue.push(current.right);
   }
   return node;
 };

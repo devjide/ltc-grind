@@ -46,3 +46,63 @@ function traverse(root) {
     .map((k) => res[k])
     .flat();
 }
+
+
+const el = <div>
+ <h1> this is </h1>
+ <p className="paragraph"> a <button> button </button> from <a href="https://bfe.dev"><b>BFE</b>.dev</a>
+ </p>
+</div>;
+
+console.log(el)
+
+
+{
+  type: 'div',
+  props: {
+    children: [
+      {
+        type: 'h1',
+        props: {
+          children: ' this is '
+        }
+      },
+      {
+        type: 'p',
+        props: {
+          className: 'paragraph',
+          children: [
+            ' a ',
+            {
+              type: 'button',
+              props: {
+                children: ' button '
+              }
+            },
+            ' from',
+            {
+              type: 'a',
+              props: {
+                href: 'https://bfe.dev',
+                children: [
+                  {
+                    type: 'b',
+                    props: {
+                      children: 'BFE'
+                    }
+                  },
+                  '.dev'
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+
+
+
+const t = { 0: id, 1: class, 2: data-value, id: id, class: class, data-value: data-value, length: 3 }
