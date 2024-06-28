@@ -53,13 +53,13 @@ function render(obj) {
   const element = document.createElement(obj.type);
 
   // Add attributes
-  for (const [key, value] of Object.entries(obj.props)) {
+  Object.entries(obj.props).forEach(([key, value]) => {
     if (key === "className") {
       element.setAttribute("class", value);
     } else if (key !== "children") {
       element.setAttribute(key, value);
     }
-  }
+  });
 
   // Add children
   const children = obj.props.children;
