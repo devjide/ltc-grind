@@ -1,34 +1,38 @@
 /* (https://bigfrontend.dev/problem/create-a-simple-store-for-DOM-node) */
 
 class NodeStore {
-  static VALUE_KEY = "__index";
-  nodeList = [];
-  valueList = [];
-  /**
-   * @param {Node} node
-   * @param {any} value
-   */
-  set(node, value) {
-    node[NodeStore.VALUE_KEY] = this.nodeList.length;
-    this.nodeList.push(node);
-    this.valueList.push(value);
-  }
-  /**
-   * @param {Node} node
-   * @return {any}
-   */
-  get(node) {
-    if (NodeStore.VALUE_KEY in node) {
-      return this.valueList[node[NodeStore.VALUE_KEY]];
-    }
-    return undefined;
+  constructor() {
+    this.store = {};
+    this.idCounter = 0;
+    this.nodeKey = "nodeStoreKey";
   }
 
-  /**
-   * @param {Node} node
-   * @return {Boolean}
-   */
+  _getNodeId(node) {
+    if (!node[this.nodeKey]) {
+      node[this.nodeKey] = ++this.idCounter;
+    }
+    return node[this.nodeKey];
+  }
+
+  set(node, value) {
+    const id = this._getNodeId(node);
+    this.store[id] = value;
+  }
+
+  get(node) {
+    const id = node[this.nodeKey];
+    return this.store[id];
+  }
+
   has(node) {
-    return NodeStore.VALUE_KEY in node;
+    const id = node[this.nodeKey];
+    return id in this.store;
+  }
+
+  delete(node) {
+    const id = node[this.nodeKey];
+    if (id in this.store) {
+      delete this.store[id];
+    }
   }
 }
